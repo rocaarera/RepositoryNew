@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>P2_102</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    <div class="header1">P2_102</div>
+
+    <form onsubmit="return validate()">
+        <table>
+            <tbody>
+                <tr>
+                    <td>Nama</td>
+                    <td>:</td>
+                    <td>
+                        <input id="nama" type="text" maxlength="20"/>
+                    </td>
+                    <td id="error_nama" style="color: red"></td> <!-- Tambahkan elemen untuk pesan kesalahan -->
+                </tr>
+                <tr>
+                    <td>Mata Kuliah</td>
+                    <td>:</td>
+                    <td>
+                        <select id="matakuliah">
+                            <option value="">Pilih Mata Kuliah</option>
+                            <option value="Matematika">Matematika</option>
+                            <option value="Fisika">Fisika</optio>
+                            <option value="Kimia">Kimia</option>
+                        </select>
+                    </td>
+                    <td id="error_matakuliah" style="color: red"></td> <!-- Tambahkan elemen untuk pesan kesalahan -->
+                </tr>
+                <tr>
+                    <td>Nilai</td>
+                    <td>:</td>
+                    <td>
+                        <input id="nilai" type="number" min="0" max="100"/>
+                    </td>
+                    <td id="error_nilai" style="color: red"></td> <!-- Tambahkan elemen untuk pesan kesalahan -->
+                </tr>
+                <tr>
+                    <td>
+                        <button onclick="clear()">
+                            Batal
+                        </button>
+                    </td>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="Kirim"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <script>
+        function validate(){
+            // Tambahkan kode validasi di sini
+            // Penggunaan JS DOM dalam validasi
+            let nama = document.getElementById("nama").value; 
+            let matakuliah = document.getElementById("matakuliah").value; 
+            let nilai = document.getElementById("nilai").value;
+            let validate = true;
+
+            // Validasi Nama
+            if (nama.trim() === "") {
+                document.getElementById("error_nama").innerText = "Harap isi field Nama!"; // Tampilkan pesan kesalahan
+                validate = false;
+            } else {
+                let namaPattern = /^[a-zA-Z\s]*$/; // Pola regex untuk huruf dan spasi
+                if (!namaPattern.test(nama.trim())) {
+                    document.getElementById("error_nama").innerText = "Nama harus berisi huruf atau spasi!"; // Tampilkan pesan kesalahan
+                    validate = false;
+                } else if (nama.trim().length > 20) { // Validasi panjang nama
+                    document.getElementById("error_nama").innerText = "Nama maksimal 20 karakter!"; // Tampilkan pesan kesalahan
+                    validate = false;
+                } else {
+                    document.getElementById("error_nama").innerText = ""; // Hapus pesan kesalahan jika valid
+                }
+            }
+
+            // Validasi Mata Kuliah
+            if (matakuliah === ""){
+                document.getElementById("error_matakuliah").innerText = "Harap pilih Mata Kuliah!"; // Tampilkan pesan kesalahan
+                validate = false;
+            } else{
+                document.getElementById("error_matakuliah").innerText = ""; // Hapus pesan kesalahan jika valid
+            }
+
+            // Validasi Nilai
+            if (nilai === ""){
+                document.getElementById("error_nilai").innerText = "Harap isi field Nilai!"; // Tampilkan pesan kesalahan
+                validate = false;
+            } else if (isNaN(nilai) || nilai < 0 || nilai > 100) { // Validasi nilai minimal 0 dan maksimal 100
+                document.getElementById("error_nilai").innerText = "Nilai harus antara 0 dan 100!"; // Tampilkan pesan kesalahan
+                validate = false;
+            } else{
+                document.getElementById("error_nilai").innerText = ""; // Hapus pesan kesalahan jika valid
+            }
+            return validate;
+        }
+
+        function clear(){
+            let cancel = $("input").val(""); // Penggunaan jQuery untuk manipulasi elemen-elemen HTML
+            return cancel;
+        }
+    </script>
+</body>
+</html>
